@@ -1,0 +1,28 @@
+@page "/teachers"
+@attribute [Authorize(Roles="Admin")]
+@inject ITeacherService TeacherService
+
+<h3>Öğretmenler</h3>
+
+@if (teachers == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <ul>
+        @foreach (var t in teachers)
+        {
+            <li>@t.FirstName @t.LastName - @t.Department</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Teacher>? teachers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        teachers = await TeacherService.GetAllTeachersAsync();
+    }
+}

@@ -1,0 +1,26 @@
+@page "/my-profile"
+@attribute [Authorize(Roles="Student")]
+@inject IStudentService StudentService
+
+<h3>Profilim</h3>
+
+@if (student == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <p><b>Ad:</b> @student.FirstName</p>
+    <p><b>Soyad:</b> @student.LastName</p>
+    <p><b>Email:</b> @student.Email</p>
+    <p><b>Numara:</b> @student.StudentNumber</p>
+}
+
+@code {
+    private Student? student;
+
+    protected override async Task OnInitializedAsync()
+    {
+        student = await StudentService.GetMyProfileAsync();
+    }
+}

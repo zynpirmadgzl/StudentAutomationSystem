@@ -1,0 +1,28 @@
+@page "/courses"
+@attribute [Authorize(Roles="Admin,Teacher")]
+@inject ICourseService CourseService
+
+<h3>Dersler</h3>
+
+@if (courses == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <ul>
+        @foreach (var c in courses)
+        {
+            <li>@c.CourseName (@c.TeacherName) - Öğrenci Sayısı: @c.StudentCount</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Courses>? courses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        courses = await CourseService.GetAllCoursesAsync();
+    }
+}

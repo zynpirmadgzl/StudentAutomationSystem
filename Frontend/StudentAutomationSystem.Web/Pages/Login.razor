@@ -1,0 +1,33 @@
+@page "/login"
+@inject NavigationManager Navigation
+@inject IAuthService AuthService
+
+<h3>Giriş Yap</h3>
+
+<EditForm Model="@Login" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="Login.Email" placeholder="Email" class="form-control" />
+    <InputText @bind-Value="Login.Password" placeholder="Şifre" type="password" class="form-control" />
+    <button type="submit" class="btn btn-primary mt-2">Giriş Yap</button>
+</EditForm>
+
+@code {
+    private Login loginModel = new();
+
+    private async Task HandleLogin()
+    {
+        var result = await AuthService.LoginAsync(loginModel);
+        if (result != null)
+        {
+            // token'ı localStorage'a yaz
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", result.Token);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // hata
+        }
+    }
+}

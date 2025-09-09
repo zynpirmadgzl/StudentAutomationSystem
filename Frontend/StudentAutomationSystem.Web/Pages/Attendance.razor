@@ -1,0 +1,28 @@
+@page "/attendance"
+@attribute [Authorize(Roles="Admin,Teacher,Student")]
+@inject IAttendanceService AttendanceService
+
+<h3>Devamsızlık</h3>
+
+@if (records == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <ul>
+        @foreach (var r in records)
+        {
+            <li>@r.Date.ToShortDateString() - @r.Status</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Attendance>? records;
+
+    protected override async Task OnInitializedAsync()
+    {
+        records = await AttendanceService.GetMyAttendanceAsync();
+    }
+}

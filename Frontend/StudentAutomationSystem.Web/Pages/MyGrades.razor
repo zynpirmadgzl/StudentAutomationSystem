@@ -1,0 +1,29 @@
+@page "/my-grades"
+@attribute [Authorize(Roles="Student")]
+@inject IGradeService GradeService
+
+<h3>Notlarım</h3>
+
+@if (grades == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <ul>
+        @foreach (var g in grades)
+        {
+            <li>@g.CourseName: @g.Score (@g.GradeType)</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<MyGrades>? grades;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Burada normalde CurrentUser.Id alınmalı
+        grades = await GradeService.GetMyGradesAsync();
+    }
+}

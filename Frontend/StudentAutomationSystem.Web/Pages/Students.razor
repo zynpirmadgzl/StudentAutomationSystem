@@ -1,0 +1,41 @@
+@page "/students"
+@attribute [Authorize(Roles="Admin,Teacher")]
+@inject IStudentService StudentService
+
+<h3>Öğrenciler</h3>
+
+@if (students == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ad Soyad</th>
+                <th>Email</th>
+                <th>Numara</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in students)
+            {
+                <tr>
+                    <td>@s.FirstName @s.LastName</td>
+                    <td>@s.Email</td>
+                    <td>@s.StudentNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Student>? students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await StudentService.GetAllStudentsAsync();
+    }
+}

@@ -1,0 +1,43 @@
+@page "/grades"
+@attribute [Authorize(Roles="Teacher")]
+@inject IGradeService GradeService
+
+<h3>Not İşlemleri</h3>
+
+@if (grades == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Öğrenci</th>
+                <th>Ders</th>
+                <th>Puan</th>
+                <th>Tür</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var g in grades)
+            {
+                <tr>
+                    <td>@g.StudentId</td>
+                    <td>@g.CourseName</td>
+                    <td>@g.Score</td>
+                    <td>@g.GradeType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Grades>? grades;
+
+    protected override async Task OnInitializedAsync()
+    {
+        grades = await GradeService.GetAllGradesAsync();
+    }
+}
