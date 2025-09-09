@@ -1,0 +1,78 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using StudentAutomationSystem.API.DTOs;
+using StudentAutomationSystem.API.Services;
+
+namespace StudentAutomationSystem.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class StudentsController : ControllerBase
+    {
+        private readonly IStudentService _studentService;
+        
+        public StudentsController(IStudentService studentService)
+        {
+            _studentService = studentService;
+        }
+        
+        [HttpGet]
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudents()
+        {
+            var students = await _studentService.GetAllStudentsAsync();
+            return Ok(students);
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<StudentDto>> GetStudent(int id)
+        {
+            var student = await _studentService.GetStudentByIdAsync(id);
+            if (student == null)
+                return NotFound();
+                
+            return Ok(student);
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<ActionResult<StudentDto>> CreateStudent([FromBody] CreateStudentDto createStudentDto)
+        {
+            var student = await _studentService.CreateStudentAsync(createStudentDto);
+            if (student == null)
+                return BadRequest("Student number already exists or creation failed");
+                
+            return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
+        }
+        
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<ActionResult<StudentDto>> UpdateStudent(int id, [FromBody] UpdateStudentDto updateStudentDto)
+        {
+            var student = await _studentService.UpdateStudentAsync(id, updateStudentDto);
+            if (student == null)
+                return NotFound();
+                
+            return Ok(student);
+        }
+        
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            var result = await _studentService.DeleteStudentAsync(id);
+            if (!result)
+                return NotFound();
+                
+            return NoContent();
+        }
+        
+        [HttpGet("{id}/grades")]
+        public async Task<ActionResult<IEnumerable<GradeDto>>> GetStudentGrades(int id)
+        {
+            var grades = await _studentService.GetStudentGradesAsync(id);
+            return Ok(grades);
+        }
+    }
+}
