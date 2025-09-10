@@ -5,7 +5,7 @@ namespace StudentAutomationSystem.Web.Services
 {
     public interface ICourseService
     {
-        Task<IEnumerable<Course>?> GetAllCoursesAsync();
+        Task<IEnumerable<CourseModel>?> GetAllCoursesAsync();
     }
 
     public class CourseService : ICourseService
@@ -17,9 +17,9 @@ namespace StudentAutomationSystem.Web.Services
             _http = http;
         }
 
-        public async Task<IEnumerable<Course>?> GetAllCoursesAsync()
+        public async Task<IEnumerable<CourseModel>?> GetAllCoursesAsync()
         {
-            return await _http.GetFromJsonAsync<IEnumerable<CourseDto>>("api/courses");
+            return await _http.GetFromJsonAsync<IEnumerable<CourseModel>>("api/courses");
         }
     }
 }

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentAutomationSystem.Web.Models
 {
-    public class Login
+    public class LoginModel
     {
         [Required(ErrorMessage = "Email gereklidir")]
         [EmailAddress(ErrorMessage = "Geçerli bir email adresi giriniz")]
@@ -12,7 +12,7 @@ namespace StudentAutomationSystem.Web.Models
         public string Password { get; set; } = string.Empty;
     }
     
-    public class Register
+    public class RegisterModel
     {
         [Required(ErrorMessage = "Email gereklidir")]
         [EmailAddress(ErrorMessage = "Geçerli bir email adresi giriniz")]

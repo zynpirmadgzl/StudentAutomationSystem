@@ -5,8 +5,8 @@ namespace StudentAutomationSystem.Web.Services
 {
     public interface IAuthService
     {
-        Task<AuthResponse?> LoginAsync(Login dto);
-        Task<AuthResponse?> RegisterAsync(Register dto);
+        Task<AuthResponse?> LoginAsync(LoginModel dto);
+        Task<AuthResponse?> RegisterAsync(RegisterModel dto);
     }
 
     public class AuthService : IAuthService
@@ -18,14 +18,14 @@ namespace StudentAutomationSystem.Web.Services
             _http = http;
         }
 
-        public async Task<AuthResponse?> LoginAsync(Login dto)
+        public async Task<AuthResponse?> LoginAsync(LoginModel dto)
         {
             var response = await _http.PostAsJsonAsync("api/auth/login", dto);
             if (!response.IsSuccessStatusCode) return null;
-            return await response.Content.ReadFromJsonAsync<AuthResponseDto>();
+            return await response.Content.ReadFromJsonAsync<AuthResponse>();
         }
 
-        public async Task<AuthResponse?> RegisterAsync(Register dto)
+        public async Task<AuthResponse?> RegisterAsync(RegisterModel dto)
         {
             var response = await _http.PostAsJsonAsync("api/auth/register", dto);
             if (!response.IsSuccessStatusCode) return null;

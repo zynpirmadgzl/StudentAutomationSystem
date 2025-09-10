@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentAutomationSystem.Web.Models
 {
-    public class Course
+    public class CourseModel
     {
         public int Id { get; set; }
         public string CourseCode { get; set; } = string.Empty;

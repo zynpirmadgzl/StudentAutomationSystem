@@ -12,9 +12,16 @@ namespace StudentAutomationSystem.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<Grade>> GetGradesAsync()
+         public async Task<List<GradeModel>> GetAllGradesAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<Grade>>("api/grades");
+            var result = await _httpClient.GetFromJsonAsync<List<GradeModel>>("api/grades");
+            return result ?? new List<GradeModel>();
+        }
+
+        public async Task<List<GradeModel>> GetMyGradesAsync()
+        {
+            var result = await _httpClient.GetFromJsonAsync<List<GradeModel>>("api/grades/my");
+            return result ?? new List<GradeModel>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace StudentAutomationSystem.Web.Services
         
         #region Auth Methods
         
-        public async Task<AuthResponse?> LoginAsync(Login model)
+        public async Task<AuthResponse?> LoginAsync(LoginModel model)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace StudentAutomationSystem.Web.Services
             return null;
         }
         
-        public async Task<AuthResponse?> RegisterAsync(Register model)
+        public async Task<AuthResponse?> RegisterAsync(RegisterModel model)
         {
             try
             {
@@ -97,12 +97,12 @@ namespace StudentAutomationSystem.Web.Services
         
         #region Student Methods
         
-        public async Task<List<Student>?> GetStudentsAsync()
+        public async Task<List<StudentModel>?> GetStudentsAsync()
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<List<Student>>("api/students");
+                return await _httpClient.GetFromJsonAsync<List<StudentModel>>("api/students");
             }
             catch (Exception ex)
             {
@@ -111,12 +111,12 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Student?> GetStudentByIdAsync(int id)
+        public async Task<StudentModel?> GetStudentByIdAsync(int id)
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<Student>($"api/students/{id}");
+                return await _httpClient.GetFromJsonAsync<StudentModel>($"api/students/{id}");
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Student?> CreateStudentAsync(CreateStudent model)
+        public async Task<StudentModel?> CreateStudentAsync(CreateStudent model)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace StudentAutomationSystem.Web.Services
                 var response = await _httpClient.PostAsJsonAsync("api/students", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<Student>();
+                    return await response.Content.ReadFromJsonAsync<StudentModel>();
                 }
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace StudentAutomationSystem.Web.Services
             return null;
         }
         
-        public async Task<Student?> UpdateStudentAsync(int id, UpdateStudent model)
+        public async Task<StudentModel?> UpdateStudentAsync(int id, UpdateStudent model)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace StudentAutomationSystem.Web.Services
                 var response = await _httpClient.PutAsJsonAsync($"api/students/{id}", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<Student>();
+                    return await response.Content.ReadFromJsonAsync<StudentModel>();
                 }
             }
             catch (Exception ex)
@@ -180,12 +180,12 @@ namespace StudentAutomationSystem.Web.Services
         
         #region Teacher Methods
         
-        public async Task<List<Teacher>?> GetTeachersAsync()
+        public async Task<List<TeacherModel>?> GetTeachersAsync()
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<List<Teacher>>("api/teachers");
+                return await _httpClient.GetFromJsonAsync<List<TeacherModel>>("api/teachers");
             }
             catch (Exception ex)
             {
@@ -194,7 +194,7 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Teacher?> CreateTeacherAsync(CreateTeacher model)
+        public async Task<TeacherModel?> CreateTeacherAsync(CreateTeacher model)
         {
             try
             {
@@ -202,7 +202,7 @@ namespace StudentAutomationSystem.Web.Services
                 var response = await _httpClient.PostAsJsonAsync("api/teachers", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<Teacher>();
+                    return await response.Content.ReadFromJsonAsync<TeacherModel>();
                 }
             }
             catch (Exception ex)
@@ -216,12 +216,12 @@ namespace StudentAutomationSystem.Web.Services
         
         #region Course Methods
         
-        public async Task<List<Course>?> GetCoursesAsync()
+        public async Task<List<CourseModel>?> GetCoursesAsync()
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<List<Course>>("api/courses");
+                return await _httpClient.GetFromJsonAsync<List<CourseModel>>("api/courses");
             }
             catch (Exception ex)
             {
@@ -230,12 +230,12 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Course?> GetCourseByIdAsync(int id)
+        public async Task<CourseModel?> GetCourseByIdAsync(int id)
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<Course>($"api/courses/{id}");
+                return await _httpClient.GetFromJsonAsync<CourseModel>($"api/courses/{id}");
             }
             catch (Exception ex)
             {
@@ -244,7 +244,7 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Course?> CreateCourseAsync(CreateCourse model)
+        public async Task<CourseModel?> CreateCourseAsync(CreateCourse model)
         {
             try
             {
@@ -252,7 +252,7 @@ namespace StudentAutomationSystem.Web.Services
                 var response = await _httpClient.PostAsJsonAsync("api/courses", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<Course>();
+                    return await response.Content.ReadFromJsonAsync<CourseModel>();
                 }
             }
             catch (Exception ex)
@@ -296,12 +296,12 @@ namespace StudentAutomationSystem.Web.Services
         
         #region Grade Methods
         
-        public async Task<List<Grade>?> GetStudentGradesAsync(int studentId)
+        public async Task<List<GradeModel>?> GetStudentGradesAsync(int studentId)
         {
             try
             {
                 await SetAuthTokenAsync();
-                return await _httpClient.GetFromJsonAsync<List<Grade>>($"api/students/{studentId}/grades");
+                return await _httpClient.GetFromJsonAsync<List<GradeModel>>($"api/students/{studentId}/grades");
             }
             catch (Exception ex)
             {
@@ -310,7 +310,7 @@ namespace StudentAutomationSystem.Web.Services
             }
         }
         
-        public async Task<Grade?> CreateGradeAsync(CreateGrade model)
+        public async Task<GradeModel?> CreateGradeAsync(CreateGrade model)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace StudentAutomationSystem.Web.Services
                 var response = await _httpClient.PostAsJsonAsync("api/grades", model);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<Grade>();
+                    return await response.Content.ReadFromJsonAsync<GradeModel>();
                 }
             }
             catch (Exception ex)

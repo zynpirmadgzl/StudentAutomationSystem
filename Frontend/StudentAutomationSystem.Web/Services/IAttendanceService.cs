@@ -4,6 +4,6 @@ namespace StudentAutomationSystem.Web.Services
 {
     public interface IAttendanceService
     {
-        Task<List<Attendance>> GetAttendancesAsync();
+        Task<List<AttendanceModel>> GetMyAttendanceAsync();
     }
 }

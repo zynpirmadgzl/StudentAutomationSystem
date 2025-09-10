@@ -3,23 +3,27 @@ using StudentAutomationSystem.Web.Models;
 
 namespace StudentAutomationSystem.Web.Services
 {
-    public interface IStudentService
-    {
-        Task<IEnumerable<Student>?> GetAllStudentsAsync();
-    }
+    
 
     public class StudentService : IStudentService
     {
-        private readonly HttpClient _http;
+        private readonly HttpClient _httpClient;
 
-        public StudentService(HttpClient http)
+        public StudentService(HttpClient httpClient)
         {
-            _http = http;
+            _httpClient = httpClient;
         }
+public async Task<List<StudentModel>> GetAllStudentsAsync()
+{
+    var result = await _httpClient.GetFromJsonAsync<List<StudentModel>>("api/students");
+    return result ?? new List<StudentModel>();
+}
 
-        public async Task<IEnumerable<Student>?> GetAllStudentsAsync()
+         public async Task<StudentModel> GetMyProfileAsync()
         {
-            return await _http.GetFromJsonAsync<IEnumerable<Student>>("api/students");
+            var result = await _httpClient.GetFromJsonAsync<StudentModel>("api/students/me");
+            return result ?? new StudentModel();
         }
     }
+    
 }
