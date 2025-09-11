@@ -1,25 +1,282 @@
-﻿@inherits LayoutView
-@inject NavigationManager Navigation
-@inject IJSRuntime JSRuntime
+﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <AuthorizeView>
+        <Authorized>
+            @{
+                var userRole = context.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value?.ToLower();
+                var userName = context.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value;
+            }
+            
+            <div class="sidebar @GetSidebarClass(userRole)">
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Öğrenci Otomasyon</span>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar @GetUserAvatarClass(userRole)">
+                            <i class="@GetUserIcon(userRole)"></i>
+                        </div>
+                        <div class="user-details">
+                            <span class="user-name">@userName</span>
+                            <span class="user-role">@GetRoleDisplayName(userRole)</span>
+                        </div>
+                    </div>
+                </div>
 
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-        </div>
+                <nav class="sidebar-nav">
+                    <NavLink class="nav-item" href="@GetDashboardUrl(userRole)" Match="NavLinkMatch.All">
+                        <i class="fas fa-home"></i>
+                        <span>Ana Sayfa</span>
+                    </NavLink>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+                    @if (userRole == "admin")
+                    {
+                        <div class="nav-section">
+                            <span class="section-title">Yönetim</span>
+                            <NavLink class="nav-item" href="/admin/users">
+                                <i class="fas fa-users"></i>
+                                <span>Kullanıcı Yönetimi</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/admin/courses">
+                                <i class="fas fa-book"></i>
+                                <span>Ders Yönetimi</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/admin/departments">
+                                <i class="fas fa-building"></i>
+                                <span>Bölüm Yönetimi</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/admin/reports">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Raporlar</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/admin/settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Sistem Ayarları</span>
+                            </NavLink>
+                        </div>
+                    }
+
+                    @if (userRole == "teacher")
+                    {
+                        <div class="nav-section">
+                            <span class="section-title">Öğretim</span>
+                            <NavLink class="nav-item" href="/teacher/courses">
+                                <i class="fas fa-chalkboard"></i>
+                                <span>Derslerim</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/teacher/students">
+                                <i class="fas fa-user-graduate"></i>
+                                <span>Öğrencilerim</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/teacher/grades">
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>Not Girişi</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/teacher/attendance">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Devam Durumu</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/teacher/schedule">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Ders Programı</span>
+                            </NavLink>
+                        </div>
+                    }
+
+                    @if (userRole == "student")
+                    {
+                        <div class="nav-section">
+                            <span class="section-title">Akademik</span>
+                            <NavLink class="nav-item" href="/student/courses">
+                                <i class="fas fa-book-open"></i>
+                                <span>Derslerim</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/student/grades">
+                                <i class="fas fa-trophy"></i>
+                                <span>Notlarım</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/student/attendance">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Devam Durumum</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/student/schedule">
+                                <i class="fas fa-calendar"></i>
+                                <span>Ders Programı</span>
+                            </NavLink>
+                            <NavLink class="nav-item" href="/student/transcript">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Transkript</span>
+                            </NavLink>
+                        </div>
+                    }
+
+                    <!-- Ortak Menü -->
+                    <div class="nav-section">
+                        <span class="section-title">Kişisel</span>
+                        <NavLink class="nav-item" href="/profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profil</span>
+                        </NavLink>
+                        <NavLink class="nav-item" href="/messages">
+                            <i class="fas fa-envelope"></i>
+                            <span>Mesajlar</span>
+                            <span class="badge">3</span>
+                        </NavLink>
+                        <NavLink class="nav-item" href="/notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Bildirimler</span>
+                        </NavLink>
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button class="logout-btn" @onclick="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Çıkış Yap</span>
+                    </button>
+                </div>
+            </div>
+
+            <main class="main-content">
+                <header class="top-header">
+                    <div class="header-left">
+                        <button class="sidebar-toggle" @onclick="ToggleSidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="breadcrumb">
+                            <i class="fas fa-home"></i>
+                            <span>@GetCurrentPageTitle()</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="action-btn notification-btn">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                            <div class="user-dropdown">
+                                <button class="user-btn">
+                                    <div class="user-avatar-small @GetUserAvatarClass(userRole)">
+                                        <i class="@GetUserIcon(userRole)"></i>
+                                    </div>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="content-area">
+                    @Body
+                </div>
+            </main>
+        </Authorized>
+        <NotAuthorized>
+            <div class="unauthorized-content">
+                @Body
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
 </div>
 
-<div id="blazor-error-ui">
-    Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "An error has occurred. This application may no longer respond until reloaded." : "An error has occurred."
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+
+
+@code {
+    [Inject] private IAuthService? AuthService { get; set; }
+    
+    private bool sidebarCollapsed = false;
+
+    private async Task Logout()
+    {
+        if (AuthService != null)
+        {
+            await AuthService.LogoutAsync();
+        }
+        NavigationManager.NavigateTo("/login", true);
+    }
+
+    private void ToggleSidebar()
+    {
+        sidebarCollapsed = !sidebarCollapsed;
+    }
+
+    private string GetSidebarClass(string? role)
+    {
+        var baseClass = role ?? "";
+        return sidebarCollapsed ? $"{baseClass} collapsed" : baseClass;
+    }
+
+    private string GetUserAvatarClass(string? role)
+    {
+        return role ?? "student";
+    }
+
+    private string GetUserIcon(string? role)
+    {
+        return role switch
+        {
+            "admin" => "fas fa-user-shield",
+            "teacher" => "fas fa-chalkboard-teacher",
+            "student" => "fas fa-user-graduate",
+            _ => "fas fa-user"
+        };
+    }
+
+    private string GetRoleDisplayName(string? role)
+    {
+        return role switch
+        {
+            "admin" => "Sistem Yöneticisi",
+            "teacher" => "Öğretmen",
+            "student" => "Öğrenci",
+            _ => "Kullanıcı"
+        };
+    }
+
+    private string GetDashboardUrl(string? role)
+    {
+        return role switch
+        {
+            "admin" => "/admin/dashboard",
+            "teacher" => "/teacher/dashboard",
+            "student" => "/student/dashboard",
+            _ => "/"
+        };
+    }
+
+    private string GetCurrentPageTitle()
+    {
+        var currentUrl = NavigationManager.Uri;
+        var segments = new Uri(currentUrl).AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        
+        if (segments.Length == 0) return "Ana Sayfa";
+        
+        var lastSegment = segments.Last();
+        return lastSegment switch
+        {
+            "dashboard" => "Ana Sayfa",
+            "users" => "Kullanıcı Yönetimi",
+            "courses" => "Dersler",
+            "students" => "Öğrenciler",
+            "grades" => "Notlar",
+            "attendance" => "Devam Durumu",
+            "schedule" => "Ders Programı",
+            "profile" => "Profil",
+            "reports" => "Raporlar",
+            "settings" => "Ayarları",
+            "messages" => "Mesajlar",
+            "notifications" => "Bildirimler",
+            "transcript" => "Transkript",
+            "departments" => "Bölümler",
+            _ => "Sayfa"
+        };
+    }
+}

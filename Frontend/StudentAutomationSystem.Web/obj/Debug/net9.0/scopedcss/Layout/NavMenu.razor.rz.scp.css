@@ -1,0 +1,31 @@
+.nav-menu[b-f93tynx9b6] {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.nav-menu ul[b-f93tynx9b6] {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li[b-f93tynx9b6] {
+    margin-bottom: 1rem;
+}
+
+.nav-menu a[b-f93tynx9b6] {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 0.25rem;
+    transition: background 0.3s ease;
+}
+
+.nav-menu a:hover[b-f93tynx9b6],
+.nav-menu a.active[b-f93tynx9b6] {
+    background-color: rgba(255, 255, 255, 0.2);
+}

@@ -11,14 +11,11 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// HttpClient yapılandırması - Backend URL'ini kendi backend adresinizle değiştirin
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001/") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5001/") });
 
-// Local Storage
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<AuthMessageHandler>();
 
-// Custom Services
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddScoped<CustomAuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider =>

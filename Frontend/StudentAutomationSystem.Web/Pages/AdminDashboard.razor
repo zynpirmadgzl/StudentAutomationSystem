@@ -1,0 +1,269 @@
+@page "/admin/dashboard"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-tachometer-alt"></i>
+                Yönetici Paneli
+            </h1>
+            <p class="header-subtitle">Sistem genel durumu ve yönetim araçları</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Yeni Kullanıcı
+            </button>
+            <button class="btn btn-outline-primary">
+                <i class="fas fa-download"></i>
+                Rapor Al
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card users">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h3>1,247</h3>
+                <p>Toplam Kullanıcı</p>
+                <span class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +12% bu ay
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card courses">
+            <div class="stat-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-content">
+                <h3>89</h3>
+                <p>Aktif Ders</p>
+                <span class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +5% bu ay
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card teachers">
+            <div class="stat-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="stat-content">
+                <h3>156</h3>
+                <p>Öğretmen</p>
+                <span class="stat-change neutral">
+                    <i class="fas fa-minus"></i>
+                    Değişim yok
+                </span>
+            </div>
+        </div>
+
+        <div class="stat-card students">
+            <div class="stat-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-content">
+                <h3>1,002</h3>
+                <p>Öğrenci</p>
+                <span class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +8% bu ay
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- Quick Actions -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Hızlı İşlemler
+                </h2>
+            </div>
+            <div class="quick-actions-grid">
+                <NavLink href="/admin/users" class="quick-action-card">
+                    <div class="action-icon users-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Kullanıcı Ekle</h4>
+                        <p>Yeni öğrenci, öğretmen veya admin ekleyin</p>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/admin/courses" class="quick-action-card">
+                    <div class="action-icon courses-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Ders Oluştur</h4>
+                        <p>Yeni ders programı oluşturun ve öğretmen atayın</p>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/admin/reports" class="quick-action-card">
+                    <div class="action-icon reports-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Rapor Görüntüle</h4>
+                        <p>Akademik raporları ve istatistikleri inceleyin</p>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/admin/settings" class="quick-action-card">
+                    <div class="action-icon settings-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Sistem Ayarları</h4>
+                        <p>Sistem konfigürasyonu ve genel ayarlar</p>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </NavLink>
+            </div>
+        </div>
+
+        <!-- Recent Activities and System Status -->
+        <div class="dashboard-grid">
+            <!-- Recent Activities -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-clock"></i>
+                        Son Aktiviteler
+                    </h2>
+                    <NavLink href="/admin/activities" class="view-all-link">
+                        Tümünü Gör <i class="fas fa-arrow-right"></i>
+                    </NavLink>
+                </div>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-icon new-user">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Yeni öğrenci kaydı:</strong> Mehmet Yılmaz</p>
+                            <span class="activity-time">5 dakika önce</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon course-created">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Yeni ders oluşturuldu:</strong> Veri Yapıları ve Algoritmalar</p>
+                            <span class="activity-time">1 saat önce</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon grade-update">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Notlar güncellendi:</strong> Matematik I dersi</p>
+                            <span class="activity-time">3 saat önce</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon system-backup">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Sistem yedeği tamamlandı</strong></p>
+                            <span class="activity-time">6 saat önce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-server"></i>
+                        Sistem Durumu
+                    </h2>
+                </div>
+                <div class="system-status">
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Veritabanı</h4>
+                            <p>Çevrimiçi ve aktif</p>
+                        </div>
+                        <div class="status-value">99.9%</div>
+                    </div>
+
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Web Servisi</h4>
+                            <p>Normal çalışıyor</p>
+                        </div>
+                        <div class="status-value">100%</div>
+                    </div>
+
+                    <div class="status-item">
+                        <div class="status-indicator warning"></div>
+                        <div class="status-content">
+                            <h4>Disk Kullanımı</h4>
+                            <p>Orta seviye kullanım</p>
+                        </div>
+                        <div class="status-value">78%</div>
+                    </div>
+
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Yedekleme</h4>
+                            <p>Son: 2 saat önce</p>
+                        </div>
+                        <div class="status-value">OK</div>
+                    </div>
+                </div>
+
+                <div class="system-alerts">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Sistem bakımı: Pazar 02:00-04:00 arası planlı bakım</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Dashboard verilerini yükle
+    }
+}

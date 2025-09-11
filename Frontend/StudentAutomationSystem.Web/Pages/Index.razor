@@ -1,0 +1,37 @@
+@page "/"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+<PageTitle>Ana Sayfa</PageTitle>
+
+<div class="welcome-container">
+    <h1>Hoş Geldiniz!</h1>
+    <p>Öğrenci Otomasyon Sistemine hoş geldiniz.</p>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            var role = authState.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            var dashboardUrl = role?.ToLower() switch
+            {
+                "admin" => "/admin/dashboard",
+                "teacher" => "/teacher/dashboard",
+                "student" => "/student/dashboard",
+                _ => "/login"
+            };
+            
+            Navigation.NavigateTo(dashboardUrl, true);
+        }
+        else
+        {
+            Navigation.NavigateTo("/login", true);
+        }
+    }
+}

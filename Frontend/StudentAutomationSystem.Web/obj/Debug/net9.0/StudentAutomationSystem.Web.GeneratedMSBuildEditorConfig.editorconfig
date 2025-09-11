@@ -28,6 +28,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/AdminDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5EYXNoYm9hcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/Attendance.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXR0ZW5kYW5jZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,8 +64,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/StudentDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudERhc2hib2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/Students.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/TeacherDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVhY2hlckRhc2hib2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adigu/Documents/StudentAutomationSystem/Frontend/StudentAutomationSystem.Web/Pages/Teachers.razor]

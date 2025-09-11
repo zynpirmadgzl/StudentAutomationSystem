@@ -1,0 +1,322 @@
+@page "/student/dashboard"
+@using Microsoft.AspNetCore.Authorization
+@inject StudentService StudentService
+@attribute [Authorize(Roles = "Student")]
+
+<div class="dashboard-container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <div class="welcome-section">
+                <h1>
+                    <i class="fas fa-user-graduate"></i>
+                    Hoş Geldiniz!
+                </h1>
+                <p class="header-subtitle">Akademik gelişiminizi takip edin ve derslerinizi yönetin</p>
+            </div>
+            <div class="semester-info">
+                <div class="semester-badge">
+                    <i class="fas fa-calendar-alt"></i>
+                    2024-2025 Güz Dönemi
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Academic Overview -->
+    <div class="academic-overview">
+        <div class="overview-card gpa-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-trophy"></i>
+                    Genel Not Ortalaması
+                </h3>
+            </div>
+            <div class="gpa-display">
+                <div class="gpa-value">3.47</div>
+                <div class="gpa-scale">/ 4.00</div>
+            </div>
+            <div class="gpa-status excellent">
+                <i class="fas fa-star"></i>
+                Mükemmel performans!
+            </div>
+        </div>
+
+        <div class="overview-card credits-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-book-open"></i>
+                    Bu Dönem
+                </h3>
+            </div>
+            <div class="credits-info">
+                <div class="credit-item">
+                    <span class="credit-label">Alınan Kredi</span>
+                    <span class="credit-value">18</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-label">Ders Sayısı</span>
+                    <span class="credit-value">6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="overview-card attendance-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-calendar-check"></i>
+                    Devam Durumu
+                </h3>
+            </div>
+            <div class="attendance-display">
+                <div class="attendance-percentage">87%</div>
+                <div class="attendance-status good">
+                    <i class="fas fa-check-circle"></i>
+                    İyi durumda
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- Current Courses -->
+        <div class="content-section courses-section">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-book"></i>
+                    Bu Dönemki Derslerim
+                </h2>
+                <NavLink href="/student/courses" class="view-all-link">
+                    Tüm Dersleri Gör <i class="fas fa-arrow-right"></i>
+                </NavLink>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">BİL-201</div>
+                        <div class="course-grade excellent">A</div>
+                    </div>
+                    <h4>Veri Yapıları ve Algoritmalar</h4>
+                    <p class="course-instructor">Dr. Ahmet Yılmaz</p>
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Pazartesi 09:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>42 öğrenci</span>
+                        </div>
+                    </div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span class="progress-text">%75 tamamlandı</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">MAT-201</div>
+                        <div class="course-grade good">B+</div>
+                    </div>
+                    <h4>Matematiksel Analiz II</h4>
+                    <p class="course-instructor">Prof. Dr. Fatma Kaya</p>
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Salı 11:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>38 öğrenci</span>
+                        </div>
+                    </div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <span class="progress-text">%60 tamamlandı</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">FİZ-201</div>
+                        <div class="course-grade average">C+</div>
+                    </div>
+                    <h4>Fizik II (Elektrik ve Manyetizma)</h4>
+                    <p class="course-instructor">Doç. Dr. Mehmet Öz</p>
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Çarşamba 14:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>35 öğrenci</span>
+                        </div>
+                    </div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                        <span class="progress-text">%45 tamamlandı</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Upcoming Schedule -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-calendar-day"></i>
+                        Bugünkü Programım
+                    </h2>
+                </div>
+                <div class="schedule-list">
+                    <div class="schedule-item current">
+                        <div class="schedule-time">09:00 - 10:50</div>
+                        <div class="schedule-content">
+                            <h4>Veri Yapıları ve Algoritmalar</h4>
+                            <p>Amfi-3 • Dr. Ahmet Yılmaz</p>
+                            <span class="schedule-status">Devam ediyor</span>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item upcoming">
+                        <div class="schedule-time">11:00 - 12:50</div>
+                        <div class="schedule-content">
+                            <h4>Matematiksel Analiz II</h4>
+                            <p>Derslik-201 • Prof. Dr. Fatma Kaya</p>
+                            <span class="schedule-status">Yaklaşıyor</span>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">14:00 - 15:50</div>
+                        <div class="schedule-content">
+                            <h4>Fizik II Lab</h4>
+                            <p>Lab-2 • Doç. Dr. Mehmet Öz</p>
+                            <span class="schedule-status">Bugün</span>
+                        </div>
+                    </div>
+                </div>
+                <NavLink href="/student/schedule" class="schedule-link">
+                    <i class="fas fa-calendar"></i>
+                    Tam Programa Git
+                </NavLink>
+            </div>
+
+            <!-- Recent Grades & Announcements -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-bullhorn"></i>
+                        Son Duyurular
+                    </h2>
+                </div>
+                <div class="announcements-list">
+                    <div class="announcement-item important">
+                        <div class="announcement-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="announcement-content">
+                            <h4>Final Sınavı Tarihleri</h4>
+                            <p>2024-2025 Güz dönemi final sınavı takvimi yayınlandı.</p>
+                            <span class="announcement-date">2 saat önce</span>
+                        </div>
+                    </div>
+
+                    <div class="announcement-item">
+                        <div class="announcement-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="announcement-content">
+                            <h4>Kütüphane Çalışma Saatleri</h4>
+                            <p>Sınav döneminde kütüphane 24 saat açık olacaktır.</p>
+                            <span class="announcement-date">1 gün önce</span>
+                        </div>
+                    </div>
+
+                    <div class="announcement-item">
+                        <div class="announcement-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="announcement-content">
+                            <h4>Ara Tatil Duyurusu</h4>
+                            <p>15-20 Kasım tarihleri arası ara tatil uygulanacaktır.</p>
+                            <span class="announcement-date">3 gün önce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Hızlı İşlemler
+                </h2>
+            </div>
+            <div class="quick-actions">
+                <NavLink href="/student/grades" class="action-item">
+                    <div class="action-icon grades">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Notlarımı Gör</h4>
+                        <p>Tüm ders notlarınızı inceleyin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/student/attendance" class="action-item">
+                    <div class="action-icon attendance">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Devam Durumu</h4>
+                        <p>Devam durumunuzu kontrol edin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/student/transcript" class="action-item">
+                    <div class="action-icon transcript">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Transkript</h4>
+                        <p>Akademik transkriptinizi görüntüleyin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/profile" class="action-item">
+                    <div class="action-icon profile">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Profili Düzenle</h4>
+                        <p>Kişisel bilgilerinizi güncelleyin</p>
+                    </div>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private StudentModel? student;
+
+    protected override async Task OnInitializedAsync()
+    {
+        student = await StudentService.GetMyProfileAsync();
+    }
+}

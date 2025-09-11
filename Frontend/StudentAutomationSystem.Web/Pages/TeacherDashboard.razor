@@ -1,0 +1,441 @@
+@page "/teacher/dashboard"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Teacher")]
+
+<div class="dashboard-container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <div class="welcome-section">
+                <h1>
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Öğretmen Paneli
+                </h1>
+                <p class="header-subtitle">Derslerinizi yönetin ve öğrencilerinizin gelişimini takip edin</p>
+            </div>
+            <div class="semester-info">
+                <div class="semester-badge">
+                    <i class="fas fa-calendar-alt"></i>
+                    2024-2025 Güz Dönemi
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teaching Overview -->
+    <div class="teaching-overview">
+        <div class="overview-card courses-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-book-open"></i>
+                    Verdiğim Dersler
+                </h3>
+            </div>
+            <div class="count-display">
+                <div class="count-value">6</div>
+                <div class="count-label">Aktif Ders</div>
+            </div>
+            <div class="card-footer">
+                <span class="footer-text">Bu dönem</span>
+            </div>
+        </div>
+
+        <div class="overview-card students-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-user-graduate"></i>
+                    Toplam Öğrenci
+                </h3>
+            </div>
+            <div class="count-display">
+                <div class="count-value">247</div>
+                <div class="count-label">Kayıtlı Öğrenci</div>
+            </div>
+            <div class="card-footer">
+                <span class="footer-text positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +18 bu dönem
+                </span>
+            </div>
+        </div>
+
+        <div class="overview-card grades-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-clipboard-check"></i>
+                    Not Girişi
+                </h3>
+            </div>
+            <div class="count-display">
+                <div class="count-value">89%</div>
+                <div class="count-label">Tamamlandı</div>
+            </div>
+            <div class="card-footer">
+                <span class="footer-text">12 not bekliyor</span>
+            </div>
+        </div>
+
+        <div class="overview-card attendance-card">
+            <div class="card-header">
+                <h3>
+                    <i class="fas fa-calendar-check"></i>
+                    Devam Durumu
+                </h3>
+            </div>
+            <div class="count-display">
+                <div class="count-value">92%</div>
+                <div class="count-label">Ortalama Devam</div>
+            </div>
+            <div class="card-footer">
+                <span class="footer-text excellent">Mükemmel</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- My Courses -->
+        <div class="content-section courses-section">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-chalkboard"></i>
+                    Derslerim
+                </h2>
+                <NavLink href="/teacher/courses" class="view-all-link">
+                    Tüm Dersleri Yönet <i class="fas fa-arrow-right"></i>
+                </NavLink>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">BİL-201</div>
+                        <div class="course-status active">Aktif</div>
+                    </div>
+                    <h4>Veri Yapıları ve Algoritmalar</h4>
+                    <div class="course-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>42 öğrenci</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>3 kredi</span>
+                        </div>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-star"></i>
+                            Not Gir
+                        </button>
+                        <button class="action-btn secondary">
+                            <i class="fas fa-calendar-check"></i>
+                            Devam
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">BİL-301</div>
+                        <div class="course-status active">Aktif</div>
+                    </div>
+                    <h4>Yazılım Mühendisliği</h4>
+                    <div class="course-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>38 öğrenci</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>4 kredi</span>
+                        </div>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-star"></i>
+                            Not Gir
+                        </button>
+                        <button class="action-btn secondary">
+                            <i class="fas fa-calendar-check"></i>
+                            Devam
+                        </button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">BİL-401</div>
+                        <div class="course-status active">Aktif</div>
+                    </div>
+                    <h4>Makine Öğrenmesi</h4>
+                    <div class="course-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>24 öğrenci</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>3 kredi</span>
+                        </div>
+                    </div>
+                    <div class="course-actions">
+                        <button class="action-btn primary">
+                            <i class="fas fa-star"></i>
+                            Not Gir
+                        </button>
+                        <button class="action-btn secondary">
+                            <i class="fas fa-calendar-check"></i>
+                            Devam
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Today's Schedule -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-calendar-day"></i>
+                        Bugünkü Programım
+                    </h2>
+                </div>
+                <div class="schedule-list">
+                    <div class="schedule-item current">
+                        <div class="schedule-time">09:00 - 10:50</div>
+                        <div class="schedule-content">
+                            <h4>Veri Yapıları ve Algoritmalar</h4>
+                            <p>Amfi-3 • 42 öğrenci</p>
+                            <div class="schedule-actions">
+                                <button class="quick-action">Yoklama Al</button>
+                                <button class="quick-action">Derse Git</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item upcoming">
+                        <div class="schedule-time">14:00 - 15:50</div>
+                        <div class="schedule-content">
+                            <h4>Yazılım Mühendisliği</h4>
+                            <p>Derslik-201 • 38 öğrenci</p>
+                            <div class="schedule-actions">
+                                <button class="quick-action">Hazırlık</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">16:00 - 17:50</div>
+                        <div class="schedule-content">
+                            <h4>Makine Öğrenmesi Lab</h4>
+                            <p>Lab-3 • 24 öğrenci</p>
+                            <div class="schedule-actions">
+                                <button class="quick-action">Hazırlık</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Tasks -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-tasks"></i>
+                        Bekleyen İşler
+                    </h2>
+                </div>
+                <div class="pending-tasks">
+                    <div class="task-item high-priority">
+                        <div class="task-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="task-content">
+                            <h4>Vize Notları</h4>
+                            <p>BİL-201 dersi vize notları girilmeli</p>
+                            <span class="task-deadline">2 gün kaldı</span>
+                        </div>
+                        <button class="task-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="task-item medium-priority">
+                        <div class="task-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="task-content">
+                            <h4>Proje Değerlendirmeleri</h4>
+                            <p>12 proje değerlendirilmesi bekliyor</p>
+                            <span class="task-deadline">1 hafta kaldı</span>
+                        </div>
+                        <button class="task-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="task-item low-priority">
+                        <div class="task-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="task-content">
+                            <h4>Final Sınavı Planı</h4>
+                            <p>Final sınavı soruları hazırlanmalı</p>
+                            <span class="task-deadline">3 hafta kaldı</span>
+                        </div>
+                        <button class="task-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities & Quick Stats -->
+        <div class="dashboard-grid">
+            <!-- Student Performance -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-chart-line"></i>
+                        Öğrenci Performansı
+                    </h2>
+                </div>
+                <div class="performance-overview">
+                    <div class="performance-item">
+                        <div class="performance-label">Mükemmel (A-A+)</div>
+                        <div class="performance-bar">
+                            <div class="bar-fill excellent" style="width: 35%"></div>
+                        </div>
+                        <div class="performance-percentage">35%</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="performance-label">İyi (B-B+)</div>
+                        <div class="performance-bar">
+                            <div class="bar-fill good" style="width: 45%"></div>
+                        </div>
+                        <div class="performance-percentage">45%</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="performance-label">Orta (C-C+)</div>
+                        <div class="performance-bar">
+                            <div class="bar-fill average" style="width: 15%"></div>
+                        </div>
+                        <div class="performance-percentage">15%</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="performance-label">Zayıf (D ve altı)</div>
+                        <div class="performance-bar">
+                            <div class="bar-fill poor" style="width: 5%"></div>
+                        </div>
+                        <div class="performance-percentage">5%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-history"></i>
+                        Son Aktiviteler
+                    </h2>
+                </div>
+                <div class="activities-list">
+                    <div class="activity-item">
+                        <div class="activity-icon grade">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Not girişi tamamlandı:</strong> BİL-301 Yazılım Mühendisliği</p>
+                            <span class="activity-time">2 saat önce</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon attendance">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Yoklama alındı:</strong> BİL-201 Veri Yapıları</p>
+                            <span class="activity-time">5 saat önce</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon assignment">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Ödev değerlendirmesi:</strong> 8 ödev değerlendirildi</p>
+                            <span class="activity-time">1 gün önce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Hızlı İşlemler
+                </h2>
+            </div>
+            <div class="quick-actions">
+                <NavLink href="/teacher/grades" class="action-item">
+                    <div class="action-icon grades">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Not Girişi</h4>
+                        <p>Öğrenci notlarını girin ve güncelleyin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/teacher/attendance" class="action-item">
+                    <div class="action-icon attendance">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Yoklama Al</h4>
+                        <p>Ders devam durumunu kaydedin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/teacher/students" class="action-item">
+                    <div class="action-icon students">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Öğrencilerim</h4>
+                        <p>Öğrenci listesini görüntüleyin</p>
+                    </div>
+                </NavLink>
+
+                <NavLink href="/teacher/schedule" class="action-item">
+                    <div class="action-icon schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Ders Programı</h4>
+                        <p>Haftalık ders programınızı görün</p>
+                    </div>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Teacher dashboard verilerini yükle
+    }
+}

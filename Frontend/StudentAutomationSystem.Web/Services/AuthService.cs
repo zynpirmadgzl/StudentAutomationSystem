@@ -7,6 +7,7 @@ namespace StudentAutomationSystem.Web.Services
     {
         Task<AuthResponse?> LoginAsync(LoginModel dto);
         Task<AuthResponse?> RegisterAsync(RegisterModel dto);
+        Task LogoutAsync();
     }
 
     public class AuthService : IAuthService
@@ -31,5 +32,10 @@ namespace StudentAutomationSystem.Web.Services
             if (!response.IsSuccessStatusCode) return null;
             return await response.Content.ReadFromJsonAsync<AuthResponse>();
         }
+        public async Task LogoutAsync()
+    {
+        // logout işlemleri (örneğin cookie, token temizleme)
+        await Task.CompletedTask;
+    }
     }
 }

@@ -1,34 +1,169 @@
 @page "/login"
-@inject NavigationManager Navigation
+@using StudentAutomationSystem.Web.Models
+@using Microsoft.AspNetCore.Components.Authorization
 @inject IAuthService AuthService
-@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2>Öğrenci Otomasyon Sistemi</h2>
+            <p>Hesabınıza giriş yapın</p>
+        </div>
 
-<h3>Giriş Yap</h3>
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin" class="login-form">
+            <DataAnnotationsValidator />
+            
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    @errorMessage
+                </div>
+            }
 
-<EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i>
+                    E-posta Adresi
+                </label>
+                <InputText @bind-Value="loginModel.Email" class="form-control" id="email" placeholder="ornek@email.com" />
+                <ValidationMessage For="@(() => loginModel.Email)" class="validation-error" />
+            </div>
 
-    <InputText @bind-Value="loginModel.Email" placeholder="Email" class="form-control" />
-    <InputText @bind-Value="loginModel.Password" placeholder="Şifre" type="password" class="form-control" />
-    <button type="submit" class="btn btn-primary mt-2">Giriş Yap</button>
-</EditForm>
+            <div class="form-group">
+                <label for="password">
+                    <i class="fas fa-lock"></i>
+                    Şifre
+                </label>
+                <div class="password-input-container">
+                    <InputText type="@(showPassword ? "text" : "password")" @bind-Value="loginModel.Password" class="form-control" id="password" placeholder="Şifrenizi giriniz" />
+                    <button type="button" class="password-toggle" @onclick="TogglePasswordVisibility">
+                        <i class="fas @(showPassword ? "fa-eye-slash" : "fa-eye")"></i>
+                    </button>
+                </div>
+                <ValidationMessage For="@(() => loginModel.Password)" class="validation-error" />
+            </div>
 
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" @bind="rememberMe" />
+                    <span class="checkmark"></span>
+                    Beni hatırla
+                </label>
+                <a href="/forgot-password" class="forgot-password">Şifremi unuttum?</a>
+            </div>
+
+            <button type="submit" class="login-btn" disabled="@isLoading">
+                @if (isLoading)
+                {
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Giriş yapılıyor...</span>
+                }
+                else
+                {
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Giriş Yap</span>
+                }
+            </button>
+        </EditForm>
+
+        <div class="login-footer">
+            <p>Henüz hesabınız yok mu? <a href="/register">Kayıt olun</a></p>
+        </div>
+    </div>
+
+    <div class="login-info">
+        <div class="info-card">
+            <h3><i class="fas fa-users"></i> Kullanıcı Rolleri</h3>
+            <div class="role-info">
+                <div class="role-item">
+                    <i class="fas fa-user-shield"></i>
+                    <div>
+                        <strong>Admin</strong>
+                        <span>Sistem yönetimi ve kullanıcı kontrolü</span>
+                    </div>
+                </div>
+                <div class="role-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <div>
+                        <strong>Öğretmen</strong>
+                        <span>Ders ve öğrenci yönetimi</span>
+                    </div>
+                </div>
+                <div class="role-item">
+                    <i class="fas fa-user-graduate"></i>
+                    <div>
+                        <strong>Öğrenci</strong>
+                        <span>Ders takibi ve not görüntüleme</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @code {
     private LoginModel loginModel = new();
+    private bool isLoading = false;
+    private bool showPassword = false;
+    private bool rememberMe = false;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Eğer kullanıcı zaten giriş yapmışsa, uygun sayfaya yönlendir
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            var role = authState.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            Navigation.NavigateTo(GetDashboardUrl(role), true);
+        }
+    }
 
     private async Task HandleLogin()
     {
-        var result = await AuthService.LoginAsync(loginModel);
-        if (result != null)
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
         {
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", result.Token);
-            Navigation.NavigateTo("/");
-        }
-        else
-        {
+            var response = await AuthService.LoginAsync(loginModel);
             
+            if (response != null)
+            {
+                // Başarılı giriş - rol bazında yönlendirme
+                Navigation.NavigateTo(GetDashboardUrl(response.Role.ToString()), true);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Giriş başarısız. E-posta ve şifrenizi kontrol ediniz.";
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
+
+    private void TogglePasswordVisibility()
+    {
+        showPassword = !showPassword;
+    }
+
+    private string GetDashboardUrl(string role)
+    {
+        return role?.ToLower() switch
+        {
+            "admin" => "/admin/dashboard",
+            "teacher" => "/teacher/dashboard", 
+            "student" => "/student/dashboard",
+            _ => "/"
+        };
+    }
 }
+
+
