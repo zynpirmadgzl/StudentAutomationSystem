@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "StudentAutomationSystem.Web",
   "resources": {
-    "hash": "sha256-V0+cnA/d++S2K3z3RN78OEfFi1X1hMAE4N3tE6TjPRw=",
+    "hash": "sha256-AZpKUunUTKNkG90pqqcUcIKXJ6ChIGUz1W3UljkqF/A=",
     "fingerprinting": {
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
       "Microsoft.AspNetCore.Authorization.z6jo10m0rd.wasm": "Microsoft.AspNetCore.Authorization.wasm",
@@ -203,8 +203,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "StudentAutomationSystem.Web.5nz81mwuck.wasm": "StudentAutomationSystem.Web.wasm",
-      "StudentAutomationSystem.Web.rqkshsvmss.pdb": "StudentAutomationSystem.Web.pdb"
+      "StudentAutomationSystem.Web.waqroks4ch.wasm": "StudentAutomationSystem.Web.wasm",
+      "StudentAutomationSystem.Web.uoj7gk6j0c.pdb": "StudentAutomationSystem.Web.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.9ih887ebfz.js": "sha256-oS7IRiQoVt9ThQ7Y2UM3XoeY0JqPD02cg9IvRdufn2w="
@@ -416,10 +416,10 @@
       "WindowsBase.vy2l5u79y6.wasm": "sha256-ufB9Mo5joMyUs3DzXWWBFFIZNEVrt6h9N5stYB6Oln4=",
       "mscorlib.xd6mv31d55.wasm": "sha256-1YSLR2eZt3ceALFV//vZUF2AloxVil3VlrW1zZYPSEI=",
       "netstandard.kaml52uspo.wasm": "sha256-HLEwBpLfzKw2/zGSVzHzFJxznCkt/WIjahrziiMrOpA=",
-      "StudentAutomationSystem.Web.5nz81mwuck.wasm": "sha256-cZ/DOG8chZM+N72ZIsN4Q0Qhr1tRxGVoOLl6XrDaEQ0="
+      "StudentAutomationSystem.Web.waqroks4ch.wasm": "sha256-GJpRL4olPMv7mIA+giWkPKQYehP6zdQl8+6VC2S1I4A="
     },
     "pdb": {
-      "StudentAutomationSystem.Web.rqkshsvmss.pdb": "sha256-A2maZ64IsQkUvjDhAJJfjqkb6QhufU5nxCAOPOyaEvg="
+      "StudentAutomationSystem.Web.uoj7gk6j0c.pdb": "sha256-kqBiGFyOLtGzdJ14yKYRK5MMAMfYevG3z5rhBWPznAk="
     }
   },
   "cacheBootResources": true,

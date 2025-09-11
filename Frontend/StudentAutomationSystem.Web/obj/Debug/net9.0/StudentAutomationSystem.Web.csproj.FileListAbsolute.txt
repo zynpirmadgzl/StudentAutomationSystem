@@ -201,8 +201,6 @@ C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSyste
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.5nz81mwuck.wasm
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.rqkshsvmss.pdb
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\blazor.boot.json
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\blazor.webassembly.js.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\Blazored.LocalStorage.12n6dz54qr.wasm.gz
@@ -407,8 +405,6 @@ C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSyste
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat.gz
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.5nz81mwuck.wasm.gz
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.rqkshsvmss.pdb.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\blazor.boot.json.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\StudentAutomationSystem.Web.staticwebassets.runtime.json
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\StudentAutomationSystem.Web.staticwebassets.endpoints.json
@@ -1079,9 +1075,6 @@ C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSyste
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\ybgt3pltu9-tjcz0u77k5.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\r8b9ie7dzn-tptq2av103.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\e8b0htagh6-lfu7j35m59.gz
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\sugax3kh2j-5nz81mwuck.gz
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\4hrgmnet6i-rqkshsvmss.gz
-C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\trckqbt2j6-8hdi8ay2x3.gz
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\staticwebassets.development.json
@@ -1091,3 +1084,10 @@ C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSyste
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\refint\StudentAutomationSystem.Web.dll
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\StudentAutomationSystem.Web.pdb
 C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\ref\StudentAutomationSystem.Web.dll
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.waqroks4ch.wasm
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.uoj7gk6j0c.pdb
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.waqroks4ch.wasm.gz
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\bin\Debug\net9.0\wwwroot\_framework\StudentAutomationSystem.Web.uoj7gk6j0c.pdb.gz
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\sugax3kh2j-waqroks4ch.gz
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\4hrgmnet6i-uoj7gk6j0c.gz
+C:\Users\adigu\Documents\StudentAutomationSystem\Frontend\StudentAutomationSystem.Web\obj\Debug\net9.0\compressed\trckqbt2j6-f4k365mzzf.gz

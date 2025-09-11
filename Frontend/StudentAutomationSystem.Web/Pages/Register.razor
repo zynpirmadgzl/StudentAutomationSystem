@@ -1,0 +1,100 @@
+@page "/register"
+@using StudentAutomationSystem.Web.Models
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+<h3>Kayıt Ol</h3>
+
+<EditForm Model="@registerModel" OnValidSubmit="@HandleRegister">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Email</label>
+        <InputText @bind-Value="registerModel.Email" class="form-control" />
+        <ValidationMessage For="@(() => registerModel.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label>Şifre</label>
+        <InputText @bind-Value="registerModel.Password" type="password" class="form-control" />
+        <ValidationMessage For="@(() => registerModel.Password)" />
+    </div>
+
+    <div class="form-group">
+        <label>Ad</label>
+        <InputText @bind-Value="registerModel.FirstName" class="form-control" />
+        <ValidationMessage For="@(() => registerModel.FirstName)" />
+    </div>
+
+    <div class="form-group">
+        <label>Soyad</label>
+        <InputText @bind-Value="registerModel.LastName" class="form-control" />
+        <ValidationMessage For="@(() => registerModel.LastName)" />
+    </div>
+
+    <div class="form-group">
+        <label>Rol</label>
+        <InputSelect @bind-Value="registerModel.Role" class="form-control">
+            <option value="">Seçiniz</option>
+            <option value="Student">Öğrenci</option>
+            <option value="Teacher">Öğretmen</option>
+            <option value="Admin">Admin</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => registerModel.Role)" />
+    </div>
+
+    @if (registerModel.Role == UserRole.Student)
+    {
+        <div class="form-group">
+            <label>Öğrenci Numarası</label>
+            <InputText @bind-Value="registerModel.StudentNumber" class="form-control" />
+        </div>
+    }
+
+    @if (registerModel.Role == UserRole.Teacher || registerModel.Role == UserRole.Admin)
+    {
+        <div class="form-group">
+            <label>Çalışan Numarası</label>
+            <InputText @bind-Value="registerModel.EmployeeNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Bölüm</label>
+            <InputText @bind-Value="registerModel.Department" class="form-control" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-info mt-2">@message</div>
+}
+
+@code {
+    private RegisterModel registerModel = new RegisterModel();
+    private string message = string.Empty;
+
+    private async Task HandleRegister()
+    {
+        try
+        {
+            var result = await AuthService.RegisterAsync(registerModel);
+            if (result != null)
+            {
+                message = "Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...";
+                await Task.Delay(1500); // kısa süre mesaj göster
+                NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                message = "Kayıt sırasında bir hata oluştu.";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"Hata: {ex.Message}";
+        }
+    }
+}

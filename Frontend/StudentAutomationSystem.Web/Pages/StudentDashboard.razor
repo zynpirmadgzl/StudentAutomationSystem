@@ -1,7 +1,8 @@
 @page "/student/dashboard"
 @using Microsoft.AspNetCore.Authorization
-@inject StudentService StudentService
+@inject IStudentService StudentService
 @attribute [Authorize(Roles = "Student")]
+
 
 <div class="dashboard-container">
     <!-- Dashboard Header -->

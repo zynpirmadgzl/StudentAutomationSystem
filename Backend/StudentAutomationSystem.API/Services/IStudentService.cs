@@ -5,7 +5,7 @@ namespace StudentAutomationSystem.API.Services
     public interface IStudentService
     {
         Task<IEnumerable<StudentDto>> GetAllStudentsAsync();
-        Task<StudentDto?> GetStudentByIdAsync(int id);
+        Task<StudentDto?> GetStudentByIdAsync(string id);
         Task<StudentDto?> CreateStudentAsync(CreateStudentDto createStudentDto);
         Task<StudentDto?> UpdateStudentAsync(int id, UpdateStudentDto updateStudentDto);
         Task<bool> DeleteStudentAsync(int id);

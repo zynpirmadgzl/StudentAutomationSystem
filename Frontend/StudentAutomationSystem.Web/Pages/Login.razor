@@ -73,7 +73,9 @@
         </EditForm>
 
         <div class="login-footer">
-            <p>Henüz hesabınız yok mu? <a href="/register">Kayıt olun</a></p>
+<p>Henüz hesabınız yok mu? 
+       <NavLink href="/register">Kayıt olun</NavLink>
+    </p>
         </div>
     </div>
 
@@ -135,7 +137,6 @@
             
             if (response != null)
             {
-                // Başarılı giriş - rol bazında yönlendirme
                 Navigation.NavigateTo(GetDashboardUrl(response.Role.ToString()), true);
             }
         }

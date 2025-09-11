@@ -6,6 +6,7 @@ namespace StudentAutomationSystem.API.Services
     {
         Task<AuthResponseDto?> LoginAsync(LoginDto loginDto);
         Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto);
+        Task LogoutAsync();
         string GenerateJwtToken(string userId, string email, string role);
     }
 }

@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentAutomationSystem.API.Data;
@@ -11,13 +10,13 @@ namespace StudentAutomationSystem.API.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        
+
         public StudentService(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-        
+
         public async Task<IEnumerable<StudentDto>> GetAllStudentsAsync()
         {
             return await _context.Students
@@ -36,15 +35,63 @@ namespace StudentAutomationSystem.API.Services
                 })
                 .ToListAsync();
         }
-        
-        public async Task<StudentDto?> GetStudentByIdAsync(int id)
+
+        public async Task<StudentDto?> GetStudentByIdAsync(string userId)
         {
+            Console.WriteLine($"GetStudentByIdAsync çağrıldı. UserId: {userId}");
+            
             var student = await _context.Students
                 .Include(s => s.User)
-                .FirstOrDefaultAsync(s => s.Id == id);
+                .FirstOrDefaultAsync(s => s.UserId == userId && s.User.IsActive);
+
+            if (student == null)
+            {
+                Console.WriteLine($"Öğrenci bulunamadı. UserId: {userId}");
                 
-            if (student == null) return null;
-            
+                // Debug: Kullanıcının var olup olmadığını kontrol et
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    Console.WriteLine($"Kullanıcı hiç bulunamadı: {userId}");
+                }
+                else
+                {
+                    Console.WriteLine($"Kullanıcı bulundu ama Student kaydı yok. User: {user.FirstName} {user.LastName}, Role: {user.Role}");
+                    
+                    // Eğer kullanıcı Student rolündeyse ama Student kaydı yoksa, oluştur
+                    if (user.Role == UserRole.Student)
+                    {
+                        var newStudent = new Student
+                        {
+                            UserId = user.Id,
+                            StudentNumber = $"S{DateTime.Now.Ticks}", // Geçici öğrenci numarası
+                            EnrollmentDate = DateTime.UtcNow
+                        };
+                        
+                        _context.Students.Add(newStudent);
+                        await _context.SaveChangesAsync();
+                        
+                        Console.WriteLine($"Eksik Student kaydı oluşturuldu: {newStudent.StudentNumber}");
+                        
+                        return new StudentDto
+                        {
+                            Id = newStudent.Id,
+                            UserId = newStudent.UserId,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            Email = user.Email!,
+                            StudentNumber = newStudent.StudentNumber,
+                            EnrollmentDate = newStudent.EnrollmentDate,
+                            IsActive = user.IsActive
+                        };
+                    }
+                }
+                
+                return null;
+            }
+
+            Console.WriteLine($"Öğrenci bulundu: {student.User.FirstName} {student.User.LastName}, StudentNumber: {student.StudentNumber}");
+
             return new StudentDto
             {
                 Id = student.Id,
@@ -57,34 +104,36 @@ namespace StudentAutomationSystem.API.Services
                 IsActive = student.User.IsActive
             };
         }
-        
+
         public async Task<StudentDto?> CreateStudentAsync(CreateStudentDto createStudentDto)
         {
-            // Check if student number already exists
             if (await _context.Students.AnyAsync(s => s.StudentNumber == createStudentDto.StudentNumber))
                 return null;
-                
+
             var user = new User
             {
                 UserName = createStudentDto.Email,
                 Email = createStudentDto.Email,
                 FirstName = createStudentDto.FirstName,
                 LastName = createStudentDto.LastName,
-                Role = UserRole.Student
+                Role = UserRole.Student,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
             };
-            
+
             var result = await _userManager.CreateAsync(user, createStudentDto.Password);
             if (!result.Succeeded) return null;
-            
+
             var student = new Student
             {
                 UserId = user.Id,
-                StudentNumber = createStudentDto.StudentNumber
+                StudentNumber = createStudentDto.StudentNumber,
+                EnrollmentDate = DateTime.UtcNow
             };
-            
+
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
-            
+
             return new StudentDto
             {
                 Id = student.Id,
@@ -97,22 +146,22 @@ namespace StudentAutomationSystem.API.Services
                 IsActive = user.IsActive
             };
         }
-        
+
         public async Task<StudentDto?> UpdateStudentAsync(int id, UpdateStudentDto updateStudentDto)
         {
             var student = await _context.Students
                 .Include(s => s.User)
                 .FirstOrDefaultAsync(s => s.Id == id);
-                
+
             if (student == null) return null;
-            
+
             student.User.FirstName = updateStudentDto.FirstName;
             student.User.LastName = updateStudentDto.LastName;
             student.User.Email = updateStudentDto.Email;
             student.User.UserName = updateStudentDto.Email;
-            
+
             await _context.SaveChangesAsync();
-            
+
             return new StudentDto
             {
                 Id = student.Id,
@@ -125,20 +174,20 @@ namespace StudentAutomationSystem.API.Services
                 IsActive = student.User.IsActive
             };
         }
-        
+
         public async Task<bool> DeleteStudentAsync(int id)
         {
             var student = await _context.Students
                 .Include(s => s.User)
                 .FirstOrDefaultAsync(s => s.Id == id);
-                
+
             if (student == null) return false;
-            
+
             student.User.IsActive = false;
             await _context.SaveChangesAsync();
             return true;
         }
-        
+
         public async Task<IEnumerable<GradeDto>> GetStudentGradesAsync(int studentId)
         {
             return await _context.Grades

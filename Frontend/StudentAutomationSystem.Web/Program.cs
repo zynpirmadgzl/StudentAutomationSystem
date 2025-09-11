@@ -26,6 +26,8 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddBlazoredLocalStorage();
+
 // Authorization
 builder.Services.AddAuthorizationCore();
 
